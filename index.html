@@ -1,0 +1,410 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Toolkit - Production-Ready TikTok Tools</title>
+    <meta name="description" content="Complete TikTok toolkit with video downloader, hashtag generator, trending feed, and more. All processing happens in your browser for maximum privacy.">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- styles.css -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <script src="../codeprotection.js"></script>
+</head>
+
+<body>
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>TikTok Toolkit</h1>
+                        <p>Production-ready TikTok tools</p>
+                    </div>
+                </div>
+                <button id="theme-toggle" class="theme-toggle">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Tabs -->
+            <div class="tabs-container">
+                <div class="tabs-list">
+                    <button class="tab-trigger active" data-tab="downloader">
+                        <i class="fas fa-download"></i>
+                        <span>Download</span>
+                    </button>
+                    <button class="tab-trigger" data-tab="history">
+                        <i class="fas fa-history"></i>
+                        <span>History</span>
+                    </button>
+                    <button class="tab-trigger" data-tab="faq">
+                        <i class="fas fa-question-circle"></i>
+                        <span>FAQ</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Download Tab -->
+            <div id="downloader-tab" class="tab-content active">
+                <div class="card">
+                    <div class="download-header">
+                        <h2>TikTok Video Downloader</h2>
+                        <p>Paste your TikTok URL below to download video or audio instantly</p>
+                    </div>
+                    
+                    <div class="input-container">
+                        <div class="input-wrapper">
+                            <div class="input-icon-left">
+                                <i class="fas fa-link"></i>
+                            </div>
+                            <input 
+                                type="text" 
+                                id="tiktok-url" 
+                                class="url-input"
+                                placeholder="Paste Tiktok Video Link Here"
+                            >
+                            <button id="paste-btn" class="paste-button">
+                                <i class="fas fa-paste"></i>
+                                Paste
+                            </button>
+                        </div>
+                        
+                        <div class="button-container">
+                            <button id="check-url-btn" class="btn btn-primary btn-full">
+                                <i class="fas fa-search"></i>
+                                Analyze TikTok Video
+                            </button>
+                            <button id="new-video-btn" class="btn new-video-btn hidden">
+                                <i class="fas fa-plus"></i>
+                                New Video
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Loading State -->
+                    <div id="loading-state" class="loading-state hidden">
+                        <div class="loading-icon">
+                            <i class="fas fa-spinner fa-spin" style="color: #3b82f6; font-size: 1.5rem;"></i>
+                        </div>
+                        <h3>Analyzing TikTok URL</h3>
+                        <p>Please wait while we fetch video information...</p>
+                    </div>
+                    
+                    <!-- Error State -->
+                    <div id="error-state" class="error-state hidden">
+                        <div class="error-icon">
+                            <i class="fas fa-exclamation-triangle" style="color: #ef4444; font-size: 1.5rem;"></i>
+                        </div>
+                        <h3>Unable to Process Video</h3>
+                        <p id="error-message"></p>
+                    </div>
+                </div>
+
+                <!-- Video Preview -->
+                <div id="video-preview" class="hidden">
+                    <!-- Video Info Card -->
+                    <div class="card">
+                        <div class="video-info-card">
+                            <div class="video-thumbnail">
+                                <img id="video-thumbnail" src="" alt="Video thumbnail">
+                            </div>
+                            <div class="video-details">
+                                <div>
+                                    <h3 id="video-title" class="video-title"></h3>
+                                    <p id="video-author" class="video-author"></p>
+                                    <p id="video-description" class="video-description line-clamp-3"></p>
+                                </div>
+                                <div class="video-stats">
+                                    <div class="stat-item">
+                                        <div class="stat-icon" style="color: #ef4444;">
+                                            <i class="fas fa-heart"></i>
+                                        </div>
+                                        <div class="stat-value" id="video-likes">0</div>
+                                        <div class="stat-label">Likes</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-icon" style="color: #3b82f6;">
+                                            <i class="fas fa-share"></i>
+                                        </div>
+                                        <div class="stat-value" id="video-shares">0</div>
+                                        <div class="stat-label">Shares</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-icon" style="color: #22c55e;">
+                                            <i class="fas fa-comment"></i>
+                                        </div>
+                                        <div class="stat-value" id="video-comments">0</div>
+                                        <div class="stat-label">Comments</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-icon" style="color: #8b5cf6;">
+                                            <i class="fas fa-play"></i>
+                                        </div>
+                                        <div class="stat-value" id="video-views">0</div>
+                                        <div class="stat-label">Views</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Download Progress -->
+                    <div id="download-progress" class="progress-container hidden">
+                        <div class="progress-header">
+                            <div class="progress-info">
+                                <div class="progress-icon">
+                                    <i class="fas fa-download" style="color: #3b82f6;"></i>
+                                </div>
+                                <div>
+                                    <h3 id="download-status">Downloading...</h3>
+                                    <p>Please wait while we prepare your file</p>
+                                </div>
+                            </div>
+                            <span id="download-percent" style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div id="progress-fill" class="progress-fill"></div>
+                        </div>
+                    </div>
+
+                    <!-- Download Options -->
+                    <div class="card">
+                        <div style="text-align: center; margin-bottom: 2rem;">
+                            <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">Choose Download Format</h2>
+                            <p style="color: var(--muted-foreground);">Select your preferred format and start downloading</p>
+                        </div>
+
+                        <div class="download-options">
+                            <!-- MP4 Download -->
+                            <div class="download-option">
+                                <div class="download-option-icon mp4-icon">
+                                    <i class="fas fa-video" style="color: #ef4444; font-size: 1.5rem;"></i>
+                                </div>
+                                <h3>MP4 Video</h3>
+                                <div class="quality-badge mp4-badge">High Quality</div>
+                                <p style="color: var(--muted-foreground); margin-bottom: 1rem;">Download video without watermark in best quality</p>
+                                <button class="download-btn mp4-btn" data-format="mp4">
+                                    <i class="fas fa-download"></i>
+                                    Download MP4
+                                </button>
+                            </div>
+
+                            <!-- MP3 Download -->
+                            <div class="download-option">
+                                <div class="download-option-icon mp3-icon">
+                                    <i class="fas fa-music" style="color: #3b82f6; font-size: 1.5rem;"></i>
+                                </div>
+                                <h3>MP3 Audio</h3>
+                                <div class="quality-badge mp3-badge">Audio Only</div>
+                                <p style="color: var(--muted-foreground); margin-bottom: 1rem;">Extract and download audio in MP3 format</p>
+                                <button class="download-btn mp3-btn" data-format="mp3">
+                                    <i class="fas fa-download"></i>
+                                    Download MP3
+                                </button>
+                            </div>
+
+                            <!-- M4A Download -->
+                            <div class="download-option">
+                                <div class="download-option-icon m4a-icon">
+                                    <i class="fas fa-file-audio" style="color: #22c55e; font-size: 1.5rem;"></i>
+                                </div>
+                                <h3>M4A Audio</h3>
+                                <div class="quality-badge m4a-badge">Best Quality</div>
+                                <p style="color: var(--muted-foreground); margin-bottom: 1rem;">Premium audio quality in M4A format</p>
+                                <button class="download-btn m4a-btn" data-format="m4a">
+                                    <i class="fas fa-download"></i>
+                                    Download M4A
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Features -->
+                        <div style="background: var(--muted); padding: 1rem; border-radius: 0.5rem; text-align: center;">
+                            <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 1.5rem; font-size: 0.875rem; color: var(--muted-foreground);">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-check-circle" style="color: #22c55e;"></i>
+                                    <span>No watermarks</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-check-circle" style="color: #22c55e;"></i>
+                                    <span>High quality</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-check-circle" style="color: #22c55e;"></i>
+                                    <span>Fast downloads</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-check-circle" style="color: #22c55e;"></i>
+                                    <span>No limits</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History Tab -->
+            <div id="history-tab" class="tab-content">
+                <div class="history-header">
+                    <div>
+                        <h2 style="font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; margin-bottom: 0.5rem;">
+                            <i class="fas fa-history" style="color: #ec4899; margin-right: 0.5rem;"></i>
+                            Recent History
+                        </h2>
+                        <p style="color: var(--muted-foreground);">Your last 5 checked TikTok URLs</p>
+                    </div>
+                    <button id="clear-history-btn" class="btn btn-outline">
+                        <i class="fas fa-trash"></i>
+                        Clear History
+                    </button>
+                </div>
+
+                <div id="history-content">
+                    <!-- History items will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- FAQ Tab -->
+            <div id="faq-tab" class="tab-content">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <h2 style="font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-bottom: 0.5rem;">
+                        <i class="fas fa-question-circle" style="color: #ec4899; margin-right: 0.5rem;"></i>
+                        Frequently Asked Questions
+                    </h2>
+                    <p style="color: var(--muted-foreground);">Everything you need to know about using TikTok Toolkit</p>
+                </div>
+
+                <div class="card" style="margin-bottom: 1.5rem;">
+                    <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem;">🔒 Privacy First</h3>
+                    <p style="color: var(--muted-foreground);">
+                        This tool operates entirely in your browser. No data is transmitted to our servers, 
+                        ensuring your privacy and security. All processing happens locally on your device.
+                    </p>
+                </div>
+
+                <div>
+                    <!-- FAQ Items -->
+                    <div class="faq-item">
+                        <button class="faq-trigger">
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <i class="fas fa-shield-alt" style="color: #ec4899;"></i>
+                                <span style="font-weight: 500;">Is my data safe? Do you store my information?</span>
+                            </div>
+                            <i class="fas fa-chevron-down" style="transition: transform 0.2s;"></i>
+                        </button>
+                        <div class="faq-content hidden">
+                            Absolutely! All processing happens directly in your browser. We never store your URLs, downloaded content, or personal information on our servers. Everything stays on your device and is completely private.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-trigger">
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <i class="fas fa-bolt" style="color: #ec4899;"></i>
+                                <span style="font-weight: 500;">Are there any rate limits or download restrictions?</span>
+                            </div>
+                            <i class="fas fa-chevron-down" style="transition: transform 0.2s;"></i>
+                        </button>
+                        <div class="faq-content hidden">
+                            Our tool respects TikTok's rate limits to ensure reliable service. For normal usage, you shouldn't encounter any restrictions. If you're downloading many videos, we recommend spacing out your requests to avoid temporary blocks.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-trigger">
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <i class="fas fa-download" style="color: #ec4899;"></i>
+                                <span style="font-weight: 500;">What video quality can I download?</span>
+                            </div>
+                            <i class="fas fa-chevron-down" style="transition: transform 0.2s;"></i>
+                        </button>
+                        <div class="faq-content hidden">
+                            We provide the highest quality available from TikTok, typically up to 720p HD. Video quality depends on the original upload quality. Audio downloads are provided in high-quality MP3 and M4A formats.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-trigger">
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <i class="fas fa-globe" style="color: #ec4899;"></i>
+                                <span style="font-weight: 500;">Will downloaded videos have watermarks?</span>
+                            </div>
+                            <i class="fas fa-chevron-down" style="transition: transform 0.2s;"></i>
+                        </button>
+                        <div class="faq-content hidden">
+                            We strive to provide watermark-free downloads when possible. However, this depends on TikTok's current API and policies. Some videos may retain watermarks due to platform restrictions.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-trigger">
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <i class="fas fa-database" style="color: #ec4899;"></i>
+                                <span style="font-weight: 500;">How does the history feature work?</span>
+                            </div>
+                            <i class="fas fa-chevron-down" style="transition: transform 0.2s;"></i>
+                        </button>
+                        <div class="faq-content hidden">
+                            Your last 5 checked URLs are stored locally in your browser's localStorage. This data never leaves your device and is only used to help you quickly access recently checked videos. You can clear this history anytime.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-trigger">
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <i class="fas fa-question-circle" style="color: #ec4899;"></i>
+                                <span style="font-weight: 500;">What if a video won't download?</span>
+                            </div>
+                            <i class="fas fa-chevron-down" style="transition: transform 0.2s;"></i>
+                        </button>
+                        <div class="faq-content hidden">
+                            Some videos may be restricted due to privacy settings, geographic restrictions, or platform policies. Try checking if the video is public, or wait a few minutes and try again. Private accounts and region-locked content cannot be accessed.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-trigger">
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <i class="fas fa-file-download" style="color: #ec4899;"></i>
+                                <span style="font-weight: 500;">What file formats are supported?</span>
+                            </div>
+                            <i class="fas fa-chevron-down" style="transition: transform 0.2s;"></i>
+                        </button>
+                        <div class="faq-content hidden">
+                            We support MP4 for video downloads (best compatibility), MP3 for standard audio, and M4A for high-quality audio. All formats work across different devices and platforms.
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: linear-gradient(to right, rgba(236, 72, 153, 0.1), rgba(59, 130, 246, 0.1)); border: 1px solid rgba(236, 72, 153, 0.3); border-radius: 0.75rem; padding: 1.5rem; text-align: center; margin-top: 2rem;">
+                    <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem;">Still have questions?</h3>
+                    <p style="color: var(--muted-foreground);">
+                        This tool is designed to be intuitive and safe. All features work offline after the initial page load, 
+                        ensuring maximum privacy and performance.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- script.js -->
+    <script src="script.js"></script>
+</body>
+</html>

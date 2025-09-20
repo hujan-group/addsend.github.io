@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TikTok Video Downloader Kit — Documentation</title>
+  <style>
+    :root{
+      --bg:#f7f8fb;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --heading:#0f172a;
+      --accent:#ff0050;
+      --mono: "Courier New", monospace;
+      --radius:10px;
+    }
+    body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial; background:var(--bg); color:#111827; margin:0; padding:32px;}
+    .wrap{max-width:980px;margin:0 auto;}
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:0 6px 22px rgba(15,23,42,0.06);padding:28px;margin-bottom:18px;}
+    h1{font-size:20px;margin:0 0 8px;color:var(--heading);}
+    h2{font-size:16px;margin:18px 0 8px;color:var(--heading);}
+    p{color:var(--muted);margin:0 0 12px;line-height:1.55;}
+    ul{margin:8px 0 12px 20px;color:var(--muted);}
+    code{background:#eef2ff;padding:2px 6px;border-radius:6px;font-family:var(--mono);font-size:13px;color:#0f172a;}
+    pre{background:#0b1220;color:#e6eef8;padding:12px;border-radius:8px;overflow:auto;font-family:var(--mono);font-size:13px}
+    .note{background:#fff4e5;padding:10px;border-radius:8px;color:#92400e;margin:12px 0;}
+    .small{font-size:13px;color:var(--muted);}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    @media (max-width:720px){.grid{grid-template-columns:1fr}}
+    a{color:var(--accent);text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>TikTok Video Downloader Kit — Documentation</h1>
+      <p class="small">
+        This document describes the included files, installation, usage, customization, and support information for the TikTok Video Downloader Kit.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Overview</h2>
+      <p>
+        The TikTok Video Downloader Kit is a lightweight, front-end utility built with pure HTML, CSS and JavaScript. It provides a simple UI to paste a TikTok video link and download media. The package is provided as a self-contained client-side tool that is easy to host on any static web host.
+      </p>
+
+      <h2>What’s Included</h2>
+      <div class="grid">
+        <div>
+          <h3 class="small">Core files</h3>
+          <ul>
+            <li><code>index.html</code> — main UI and markup (approx. 410 lines)</li>
+            <li><code>js/script.js</code> — app logic and network handling (approx. 389 lines)</li>
+            <li><code>css/styles.css</code> — full styling and responsive rules (approx. 764 lines)</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="small">Demo</h3>
+          <p class="small">Live demo (reference): <a href="https://shop.tookzy.com/wp-content/uploads/WebCarftTool/tiktok-video-downloader-new/index.html" target="_blank" rel="noreferrer">View demo</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Key Features</h2>
+      <ul>
+        <li>Paste a TikTok video URL and download media quickly</li>
+        <li>Support for common output formats (video / audio) — UI shows format options</li>
+        <li>Progress indicators and user-friendly download flow</li>
+        <li>Responsive layout optimized for desktop and mobile</li>
+        <li>Zero backend requirement — can be hosted on any static hosting provider</li>
+      </ul>
+
+      <div class="note">
+        <strong>Important:</strong> Depending on how the kit is implemented, cross-origin or third-party API usage may be required to fetch and convert TikTok media. Make sure you understand the usage requirements and legal considerations for downloading third-party content in your region.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Installation & Hosting</h2>
+      <ol>
+        <li>Download and extract the package to your machine.</li>
+        <li>Keep the file structure intact: <code>index.html</code>, <code>css/styles.css</code>, and <code>js/script.js</code>.</li>
+        <li>Upload the folder to any static host (Netlify, GitHub Pages, Vercel, cPanel, etc.).</li>
+        <li>Open the <code>index.html</code> URL in a browser to test the downloader UI.</li>
+      </ol>
+      <p class="small">
+        Tip: If your hosting adds a folder path, ensure any relative asset paths in <code>index.html</code> are correct.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>How to Use</h2>
+      <ol>
+        <li>Open the app in your browser (hosted URL or local file).</li>
+        <li>Paste a TikTok video URL in the input field and choose the desired output format if available (e.g., MP4 / MP3).</li>
+        <li>Click <strong>Download</strong>. The UI will attempt to fetch and prepare the media for download.</li>
+        <li>Use the progress indicator to monitor the process; when ready, the file will be offered for download.</li>
+      </ol>
+      <p class="small">
+        Note: If the downloader relies on a third-party service or API endpoint, network availability and CORS policies may affect behavior. See Troubleshooting below.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Customization</h2>
+      <ul>
+        <li><strong>Visuals:</strong> Edit <code>css/styles.css</code> to change colors, typography, spacing, and responsive breakpoints.</li>
+        <li><strong>Behavior:</strong> Modify <code>js/script.js</code> to change format options, timeouts, or how the app handles responses.</li>
+        <li><strong>Branding:</strong> Replace logo, headings, and textual labels in <code>index.html</code> for your own branding.</li>
+      </ul>
+      <p class="small">
+        If you plan to integrate a custom backend or an API proxy for media fetching, implement server endpoints and update the fetch URLs inside <code>script.js</code>.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Troubleshooting</h2>
+      <ul>
+        <li>If downloads fail: check the browser console for CORS or network errors.</li>
+        <li>If the app can't fetch media: verify any third-party API or proxy service is reachable and not rate-limited.</li>
+        <li>If layout breaks on mobile: ensure <code>css/styles.css</code> is loading and media queries are intact.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Legal & Copyright</h2>
+      <p class="small">
+        This tool enables downloading media from third-party platforms. It is the end-user's responsibility to ensure downloads comply with the content owner's terms of service and local copyright laws. The author disclaims responsibility for unlawful use.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Support & Updates</h2>
+      <p class="small">
+        For support, bug reports, or to request additional features, please contact: <a href="mailto:info.xyrotech@gmail.com">info.xyrotech@gmail.com</a>
+      </p>
+      <p class="small">
+        We recommend including screenshots, steps to reproduce any issue, and the browser/host information to help us reproduce and fix problems quickly.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Changelog / Version Notes</h2>
+      <ul>
+        <li><strong>v1.0</strong> — Initial public release: core download UI, format selector, and progress handling.</li>
+        <li>Future updates may include batch downloads, format presets, and improved mobile UX.</li>
+      </ul>
+    </div>
+
+    <div class="card small">
+      <p>Thank you for using the TikTok Video Downloader Kit. If you need a custom integration (server proxy, multi-format conversion, or branded hosting), we offer paid customization services—contact us at <a href="mailto:info.xyrotech@gmail.com">info.xyrotech@gmail.com</a>.</p>
+    </div>
+  </div>
+</body>
+</html>
